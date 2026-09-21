@@ -2,6 +2,7 @@
 
 /* Главная половина — левая. USB всегда втыкается в неё.
    Так обе половины шьются одной и той же прошивкой. */
+#define SOFT_SERIAL_PIN GP1
 #define MASTER_LEFT
 #define SPLIT_USB_DETECT
 /* Mod-tap: Esc/Gui и '/Alt.
