@@ -23,3 +23,16 @@
 #ifdef OLED_ENABLE
 #    define OLED_TIMEOUT 60000
 #endif
+
+/* --- Vial --- */
+// Уникальный идентификатор именно ЭТОЙ прошивки/раскладки для Vial.
+// Сгенерирован случайно, менять не нужно (если не хочешь получить
+// в Vial-приложении "другую" клавиатуру с нуля).
+#define VIAL_KEYBOARD_UID {0x64, 0x0A, 0x4C, 0xA6, 0x37, 0x33, 0xA3, 0x96}
+
+// Комбинация для разблокировки настроек Vial (Security → Unlock):
+// две верхние левые клавиши на ЛЕВОЙ половине, зажать при включении.
+#define VIAL_UNLOCK_COMBO_ROWS {0, 0}
+#define VIAL_UNLOCK_COMBO_COLS {0, 1}
+
+#define DYNAMIC_KEYMAP_LAYER_COUNT 4
