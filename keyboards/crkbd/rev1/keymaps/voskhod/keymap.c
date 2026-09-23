@@ -13,7 +13,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * | Esc/Gui|  Q |  W |  E |  R |  T |            |  |  Y |  U |  I |  O |  P |   [            |
      * | Tab    |  A |  S |  D |  F |  G |            |  |  H |  J |  K |  L |  ; |   ]            |
      * | Shift  |  Z |  X |  C |  V |  B |            |  |  N |  M |  , |  . |  / |  '/Alt         |
-     * `-------------------| Ctrl | L1 | Enter |  | Space | L2 | Bksp |--------------------------'
+     * `-------------------| Ctrl | L1 | Space |  | Enter | L2 | Bksp |--------------------------'
      */
     [_BASE] = LAYOUT_split_3x6_3(
         LGUI_T(KC_ESC), KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,
@@ -25,8 +25,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT,        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,
                         KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, LALT_T(KC_QUOT),
 
-                        KC_LCTL, MO(_NUM), KC_ENT,
-                        KC_SPC,  MO(_NAV), KC_BSPC
+                        KC_LCTL, MO(_NUM), KC_SPC,
+                        KC_ENT,  MO(_NAV), KC_BSPC
     ),
 
     /* Цифровой и символьный слой (зажать L1 на левой половине)
@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |   `    |  % |  # |  $ |  ^ |  _ |            |  |  - |  7 |  8 |  9 |  + |   =            |
      * | Tab    |  @ |  ! |  & |  ( |  ) |            |  |  * |  4 |  5 |  6 |  0 |  Ctrl          |
      * | Shift  |Ins |Caps|Num |  \ |Del |            |  |  / |  1 |  2 |  3 |  , |  Alt           |
-     * `-------------------| Ctrl | --- | Enter |  | Space | L2 | Bksp |--------------------------'
+     * `-------------------| Ctrl | --- | Space |  | Enter | L2 | Bksp |--------------------------'
      */
     [_NUM] = LAYOUT_split_3x6_3(
         KC_GRV,  KC_PERC, KC_HASH, KC_DLR,  KC_CIRC, KC_UNDS,
@@ -46,8 +46,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT, KC_INS,  KC_CAPS, KC_NUM,  KC_BSLS, KC_DEL,
                  KC_SLSH, KC_1,    KC_2,    KC_3,    KC_COMM, KC_RALT,
 
-                 KC_LCTL, KC_TRNS, KC_ENT,
-                 KC_SPC,  KC_TRNS, KC_BSPC
+                 KC_LCTL, KC_TRNS, KC_SPC,
+                 KC_ENT,  KC_TRNS, KC_BSPC
     ),
 
     /* Слой навигации и мультимедиа (зажать L2 на правой половине)
@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |  Gui   | F1 | F2 | F3 | F4 |Vol+|            |  |WhUp|Home| Up |End |Bksp|  Del           |
      * | Tab    | F5 | F6 | F7 | F8 |Mute|            |  |WhDn|Left|Down|Rght|PgUp|  PrtSc         |
      * | Shift  | F9 |F10 |F11 |F12 |Vol-|            |  | -- |Prev|Play|Next|PgDn|  Alt           |
-     * `-------------------| Ctrl | L1 | Enter |  | Space | --- | Bksp |-------------------------'
+     * `-------------------| Ctrl | L1 | Space |  | Enter | --- | Bksp |-------------------------'
      */
     [_NAV] = LAYOUT_split_3x6_3(
         KC_LGUI, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_VOLU,
@@ -67,8 +67,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_VOLD,
                  KC_NO,   KC_MPRV, KC_MPLY, KC_MNXT, KC_PGDN, KC_RALT,
 
-                 KC_LCTL, KC_TRNS, KC_ENT,
-                 KC_SPC,  KC_TRNS, KC_BSPC
+                 KC_LCTL, KC_TRNS, KC_SPC,
+                 KC_ENT,  KC_TRNS, KC_BSPC
     ),
 };
 
@@ -79,10 +79,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270;
 }
 
-// Лого "Neeasy" для правой половины.
-// Нарисовано под ПОВЁРНУТЫЙ логический холст экрана (32 px шириной x 128 px высотой) —
-// то есть в тех же логических координатах, что и обычный текст (который у тебя уже
-// отображается верно), а не в сыром формате буфера SSD1306.
+// Лого "Neeasy" для правой половины (без изменений, уже работает верно)
 static const unsigned char PROGMEM neeasy_logo[] = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFE, 0x00, 0x00, 0xFF, 0xFE, 0x00, 0x00, 0xFF, 0xFE, 0x00,
@@ -118,29 +115,47 @@ static const unsigned char PROGMEM neeasy_logo[] = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
 
-// Рисует лого поштучно через oled_write_pixel — те же логические координаты,
-// что использует обычный текст. Это гарантирует правильную ориентацию,
-// в отличие от сырой записи в буфер (которая игнорирует поворот экрана).
-static void draw_neeasy_logo(void) {
-    const uint8_t width = 32;
-    const uint8_t height = 128;
-    const uint8_t bytes_per_row = 4; // (32 + 7) / 8
+// Графический ник "Neeasy" для левой половины — 32 px шириной, 76 px высотой,
+// размещается ниже блока с номером слоя и CAPS.
+static const unsigned char PROGMEM neeasy_nick[] = {
+    0x00, 0x38, 0x00, 0x00, 0x00, 0x3F, 0x00, 0x00, 0x00, 0x3F, 0xC0, 0x00, 0x00, 0x0F, 0xF8, 0x00,
+    0x00, 0x01, 0xFE, 0x00, 0x00, 0x00, 0xFF, 0x00, 0x00, 0x03, 0xFF, 0x80, 0x00, 0x1F, 0xF3, 0x80,
+    0x00, 0x3F, 0x83, 0x80, 0x00, 0x3E, 0x01, 0x80, 0x00, 0x38, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x18, 0xF0, 0x00, 0x00, 0x19, 0xF0, 0x00, 0x00, 0x39, 0xF8, 0x00,
+    0x00, 0x3B, 0xB8, 0x00, 0x00, 0x3B, 0xB8, 0x00, 0x00, 0x3B, 0xB8, 0x00, 0x00, 0x3F, 0x38, 0x00,
+    0x00, 0x1F, 0x38, 0x00, 0x00, 0x1E, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x0F, 0xF8, 0x00, 0x00, 0x1F, 0xF8, 0x00, 0x00, 0x1F, 0xF8, 0x00,
+    0x00, 0x3F, 0xF0, 0x00, 0x00, 0x3B, 0x30, 0x00, 0x00, 0x3B, 0x38, 0x00, 0x00, 0x3B, 0x38, 0x00,
+    0x00, 0x3B, 0xF8, 0x00, 0x00, 0x19, 0xF8, 0x00, 0x00, 0x19, 0xF0, 0x00, 0x00, 0x00, 0x60, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0xB0, 0x00, 0x00, 0x0F, 0xB8, 0x00, 0x00, 0x1F, 0xB8, 0x00,
+    0x00, 0x3D, 0xB8, 0x00, 0x00, 0x39, 0xB8, 0x00, 0x00, 0x39, 0xB8, 0x00, 0x00, 0x39, 0xB8, 0x00,
+    0x00, 0x3F, 0xF8, 0x00, 0x00, 0x1F, 0xF0, 0x00, 0x00, 0x0F, 0xE0, 0x00, 0x00, 0x07, 0xC0, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0xB0, 0x00, 0x00, 0x0F, 0xB0, 0x00,
+    0x00, 0x1F, 0xB8, 0x00, 0x00, 0x3F, 0xB8, 0x00, 0x00, 0x39, 0xB8, 0x00, 0x00, 0x39, 0xB8, 0x00,
+    0x00, 0x39, 0xB8, 0x00, 0x00, 0x3D, 0xF8, 0x00, 0x00, 0x1F, 0xF0, 0x00, 0x00, 0x0F, 0xF0, 0x00,
+    0x00, 0x07, 0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0xFF, 0xF8, 0x00,
+    0x01, 0xFF, 0xF8, 0x00, 0x01, 0xFF, 0xF8, 0x00, 0x01, 0xFF, 0xF8, 0x00, 0x00, 0x01, 0xF8, 0x00,
+    0x00, 0x07, 0xE0, 0x00, 0x00, 0x1F, 0x80, 0x00, 0x00, 0x7E, 0x00, 0x00, 0x00, 0xF8, 0x00, 0x00,
+    0x01, 0xFF, 0xF8, 0x00, 0x01, 0xFF, 0xF8, 0x00, 0x01, 0xFF, 0xF8, 0x00, 0x01, 0xFF, 0xF8, 0x00
+};
 
+// Универсальная функция отрисовки: рисует monochrome-битмап по абсолютным
+// логическим координатам (те же координаты, что и у обычного текста).
+static void draw_bitmap(const unsigned char* bitmap, uint8_t width, uint8_t height, uint8_t y_offset) {
+    uint8_t bytes_per_row = (width + 7) / 8;
     for (uint8_t y = 0; y < height; y++) {
         for (uint8_t x = 0; x < width; x++) {
             uint16_t byte_index = (uint16_t)y * bytes_per_row + (x / 8);
             uint8_t  bit_index  = 7 - (x % 8);
-            bool on = (pgm_read_byte(&neeasy_logo[byte_index]) >> bit_index) & 1;
-            oled_write_pixel(x, y, on);
+            bool on = (pgm_read_byte(&bitmap[byte_index]) >> bit_index) & 1;
+            oled_write_pixel(x, y + y_offset, on);
         }
     }
 }
 
 bool oled_task_user(void) {
     if (is_keyboard_master()) {
-        // ЛЕВАЯ половина — ник и графический индикатор активного слоя
-        oled_write_P(PSTR("Neeasy\n\n"), false);
-
+        // ЛЕВАЯ половина — графический индикатор слоя, CAPS, и ниже — ник картинкой
         uint8_t layer = get_highest_layer(layer_state);
 
         oled_write_P(PSTR(" 1\n"), layer == _BASE);
@@ -151,9 +166,12 @@ bool oled_task_user(void) {
 
         led_t led_state = host_keyboard_led_state();
         oled_write_P(PSTR("CAPS\n"), led_state.caps_lock);
+
+        // Ник — картинкой, пониже текстового блока (5 строк * 8px = 40px + отступ)
+        draw_bitmap(neeasy_nick, 32, 76, 46);
     } else {
         // ПРАВАЯ половина — лого
-        draw_neeasy_logo();
+        draw_bitmap(neeasy_logo, 32, 128, 0);
     }
     return false;
 }
